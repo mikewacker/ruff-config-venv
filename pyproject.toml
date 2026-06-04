@@ -1,0 +1,18 @@
+[project]
+name = "ruff-convig-venv"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["pandas"]
+
+[dependency-groups]
+dev = ["ruff"]
+
+[tool.ruff]
+include = ["src/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B"]
+
+[tool.uv]
+package=false
+cache-dir = ".uv-cache"
