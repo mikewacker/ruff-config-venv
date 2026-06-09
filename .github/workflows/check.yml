@@ -1,0 +1,28 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/mikewacker/ruff-config-venv
+    env:
+      UV_CACHE_DIR: ${{ github.workspace }}/.uv-cache
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Check uv lockfile
+        run: uv lock --check
+
+      - name: Sync uv
+        run: uv sync --frozen
+
+      - name: Check
+        run: uv run ruff check
